@@ -1,0 +1,8 @@
+# local auth token — never committed, never backed up off-machine
+.token
+# the database is personal data; it stays on the machine that created it
+*.db
+*.db-wal
+*.db-shm
+__pycache__/
+*.pyc

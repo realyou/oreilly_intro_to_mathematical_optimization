@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<title>life tracker</title>
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+<div id="login" class="login hidden">
+  <form id="login-form" class="card">
+    <h1>life tracker</h1>
+    <p class="muted">paste the token from <code>tracker/.token</code>.</p>
+    <input id="token" type="password" autocomplete="off" placeholder="token" required>
+    <button type="submit">sign in</button>
+    <p id="login-error" class="error hidden"></p>
+  </form>
+</div>
+
+<div id="app" class="hidden">
+  <header>
+    <nav class="tabs">
+      <button data-view="today" class="tab active">today</button>
+      <button data-view="goals" class="tab">goals</button>
+      <button data-view="projects" class="tab">projects</button>
+      <button data-view="data" class="tab">data</button>
+    </nav>
+    <button id="signout" class="link">sign out</button>
+  </header>
+
+  <main>
+    <!-- today -->
+    <section id="view-today" class="view">
+      <div class="daynav">
+        <button id="prev-day">&larr;</button>
+        <div>
+          <h2 id="today-date">—</h2>
+          <p id="today-count" class="muted"></p>
+        </div>
+        <button id="next-day">&rarr;</button>
+      </div>
+      <ul id="today-list" class="list"></ul>
+      <details id="done-wrap" class="done-wrap">
+        <summary><span id="done-count">0</span> completed</summary>
+        <ul id="today-done" class="list"></ul>
+      </details>
+      <p id="today-empty" class="muted hidden">nothing scheduled. an empty day is a real
+        answer, not a failure to log.</p>
+    </section>
+
+    <!-- goals -->
+    <section id="view-goals" class="view hidden">
+      <div id="goals-list"></div>
+      <p class="footnote">goals are created and restructured by the agent, in conversation.
+        this view completes checklists and shows state.</p>
+    </section>
+
+    <!-- projects -->
+    <section id="view-projects" class="view hidden">
+      <div id="projects-list"></div>
+      <p class="footnote">health comes from explicit rules — blockers, open next actions,
+        milestones against the deadline. never a percentage guessed from elapsed time.</p>
+    </section>
+
+    <!-- data -->
+    <section id="view-data" class="view hidden">
+      <p class="readonly-banner">read-only. the agent is the write interface for logs,
+        metrics, corrections and interpretation.</p>
+
+      <div class="controls">
+        <label for="metric-pick">metric</label>
+        <select id="metric-pick"></select>
+        <div class="ranges" id="ranges">
+          <button data-days="7">7d</button>
+          <button data-days="30" class="active">30d</button>
+          <button data-days="90">90d</button>
+          <button data-days="365">365d</button>
+        </div>
+      </div>
+
+      <div id="chart-card" class="card chart-card">
+        <h3 id="chart-title">—</h3>
+        <div id="chart"></div>
+        <p id="chart-coverage" class="muted"></p>
+        <p id="chart-estimated" class="muted"></p>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h3>goal progress</h3>
+          <div id="data-goals"></div>
+        </div>
+        <div class="card">
+          <h3>project delivery</h3>
+          <div id="data-projects"></div>
+        </div>
+        <div class="card">
+          <h3>habit consistency</h3>
+          <div id="data-habits"></div>
+          <p class="footnote">scheduled days only. paused and skipped days are not misses.
+            no streaks — recovery matters more than an unbroken run.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <span id="status" class="muted"></span>
+  </footer>
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>
