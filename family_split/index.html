@@ -308,9 +308,15 @@
           <input id="fDate" type="date" required>
         </div>
       </div>
-      <div class="field" id="rateField" hidden>
-        <label for="fRate">Kurs: 1 <span id="rateCur">GEL</span> = ? <span id="rateBase">EUR</span></label>
-        <input id="fRate" type="number" step="0.0001" min="0" inputmode="decimal">
+      <div class="grid2" id="rateField" hidden>
+        <div class="field">
+          <label for="fCard">Auf Karte abgebucht in <span id="rateBase">EUR</span></label>
+          <input id="fCard" type="number" step="0.01" min="0" inputmode="decimal" placeholder="optional, setzt den Kurs">
+        </div>
+        <div class="field">
+          <label for="fRate">Kurs: 1 <span id="rateCur">GEL</span> = ? <span id="rateBase2">EUR</span></label>
+          <input id="fRate" type="number" step="0.0001" min="0" inputmode="decimal">
+        </div>
       </div>
       <div class="field">
         <label for="fPayer">Bezahlt von</label>
@@ -610,7 +616,7 @@
       list.append(el("div", { class: "exp" + (!e.paidBy ? " needs" : ""), onclick: () => openForm(e) },
         el("div", { class: "date" }, d ? [el("b", {}, String(d.getDate())), d.toLocaleDateString("de-DE", { month: "short" })] : "—"),
         el("div", { style: "min-width:0" }, el("div", { class: "title" }, e.title || "Ohne Titel", " ", !e.paidBy ? el("span", { class: "pill" }, "Bezahlt von?") : null, e.kind === "settlement" ? el("span", { class: "pill settle" }, "Ausgleich") : null), el("div", { class: "meta" }, metaBits.join(" · "))),
-        el("div", { class: "amt" }, fmt(toCents(e.amount), e.currency), e.currency !== g.base ? el("span", { class: "base" }, "≈ " + fmt(Math.round(toCents(e.amount) * r), g.base)) : null)));
+        el("div", { class: "amt" }, fmt(toCents(e.amount), e.currency), e.currency !== g.base ? el("span", { class: "base" }, (e.cardAmount > 0 ? "Karte " : "≈ ") + fmt(Math.round(toCents(e.amount) * r), g.base)) : null)));
     }
     p.append(el("div", { class: "card" }, el("div", { class: "head" }, el("h2", {}, "Alle Ausgaben"), el("span", { class: "note" }, "Antippen zum Bearbeiten")), el("div", { class: "body" }, list)));
   }
@@ -651,7 +657,7 @@
     const newCur = el("input", { type: "text", id: "newCur", placeholder: "Neue Währung, z. B. TRY", maxlength: "3", style: "text-transform:uppercase", autocomplete: "off" });
     p.append(el("div", { class: "card" }, el("div", { class: "head" }, el("h2", {}, "Währungen")), el("div", { class: "body" }, rates,
       ro ? null : el("div", { class: "inline-add" }, newCur, el("button", { class: "btn", onclick: async () => { const c = newCur.value.trim().toUpperCase(); if (/^[A-Z]{3}$/.test(c) && !(c in (g.rates || {})) && c !== g.base) { await store.saveGroup({ ...g, rates: { ...g.rates, [c]: 1 } }); newCur.value = ""; } } }, "Hinzufügen")),
-      el("p", { class: "note", style: "margin:10px 0 0" }, "Jede Ausgabe merkt sich ihren Kurs beim Anlegen. Kurse hier ändern nur neue Ausgaben."))));
+      el("p", { class: "note", style: "margin:10px 0 0" }, "Jede Ausgabe merkt sich ihren Kurs beim Anlegen. Kurse hier ändern nur neue Ausgaben. Genauer: In der Ausgabe den Betrag eintragen, den die Karte wirklich abgebucht hat, dann rechnet die Kasse mit dem echten Kurs inklusive Bankgebühr."))));
 
     p.append(el("div", { class: "card" }, el("div", { class: "head" }, el("h2", {}, "So rechnet die Kasse")), el("div", { class: "body" }, el("p", { class: "note", style: "margin:0" },
       "Jede Ausgabe wird in Cent auf die Beteiligten verteilt, Restcent gehen nach dem größten Rest. Bei Positionen werden Steuer, Trinkgeld und Rundung anteilig auf die Positionen der Personen verteilt. Der Ausgleich sucht die kleinste Zahl an Überweisungen: Die Personen werden in möglichst viele Gruppen zerlegt, deren Salden sich zu null addieren; jede Gruppe mit k Personen braucht dann genau k − 1 Überweisungen."))));
@@ -685,13 +691,15 @@
   function syncRate() {
     const f = state.form, g = state.group; const cur = $("#fCurrency").value; f.currency = cur;
     const rf = $("#rateField"); rf.hidden = cur === g.base;
-    $("#rateCur").textContent = cur; $("#rateBase").textContent = g.base;
-    if (cur !== g.base) { if (!(f.rate > 0) || f._rateCur !== cur) { f.rate = Number(g.rates?.[cur]) || 1; } $("#fRate").value = f.rate; } else f.rate = 1;
+    $("#rateCur").textContent = cur; $("#rateBase").textContent = g.base; $("#rateBase2").textContent = g.base;
+    if (cur !== g.base) { if (!(f.rate > 0) || f._rateCur !== cur) { f.rate = Number(g.rates?.[cur]) || 1; } $("#fRate").value = f.rate; $("#fCard").value = f.cardAmount > 0 ? Number(f.cardAmount).toFixed(2) : ""; } else { f.rate = 1; f.cardAmount = null; }
     f._rateCur = cur;
   }
   $("#fCurrency").addEventListener("change", () => { state.form.rate = 0; syncRate(); renderSplit(); });
-  $("#fRate").addEventListener("input", (e) => { state.form.rate = Number(e.target.value) || 0; });
-  $("#fAmount").addEventListener("input", (e) => { state.form.amount = e.target.value; renderSplit(false); });
+  $("#fRate").addEventListener("input", (e) => { state.form.rate = Number(e.target.value) || 0; state.form.cardAmount = null; $("#fCard").value = ""; });
+  function applyCard() { const f = state.form; const card = Number($("#fCard").value); const amt = Number(f.amount); f.cardAmount = card > 0 ? card : null; if (card > 0 && amt > 0) { f.rate = Math.round((card / amt) * 1e6) / 1e6; $("#fRate").value = f.rate; } }
+  $("#fCard").addEventListener("input", applyCard);
+  $("#fAmount").addEventListener("input", (e) => { state.form.amount = e.target.value; if (Number($("#fCard").value) > 0) applyCard(); renderSplit(false); });
   $("#fTitle").addEventListener("input", (e) => (state.form.title = e.target.value));
   $("#fDate").addEventListener("input", (e) => (state.form.date = e.target.value));
   $("#fNote").addEventListener("input", (e) => (state.form.note = e.target.value));
