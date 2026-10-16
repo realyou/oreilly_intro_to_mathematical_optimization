@@ -1,0 +1,7 @@
+# Course dependencies. Install with: pip install -r requirements.txt
+# PuLP 4 rewrote its API (LpVariable no longer takes lowBound/cat, LpVariable.dicts is gone);
+# every solver script here is written against the PuLP 2/3 API.
+pulp>=3,<4
+numpy
+pandas
+scipy
