@@ -65,7 +65,7 @@ Contract: a command `extract <image> > receipt.json` (or a Python function `extr
 
 | # | Task | Owner | Done when |
 |---|---|---|---|
-| 1 | `splits` exists on the family account. Create the subfolders, share with cccmiller@gmail.com as editor, turn the public link off, install Drive desktop sync on the Mac (family account), note the local path | Christian | Hermes can list `inbox` from the shell |
+| 1 | `splits` exists on the family account and the subfolders were created on 6 Nov. Still open: restrict sharing to cccmiller@gmail.com as editor (the folder is currently editable by anyone with the link), install Drive desktop sync on the Mac (family account), note the local path, copy `fixtures/policy.json` to `splits/policy.json` (Claude's upload failed: cccmiller quota) | Christian | Hermes can list `inbox` from the shell |
 | 2 | Copy the receipt photos (5 Georgian, Apotekku, Pepito, 3 Thalassa) into `fixtures/receipts/` and the real IDR line prices into the two Nov fixtures | Christian | fixtures reflect the real receipts |
 | 3 | Extraction adapter per section 4 | Codex | adapter passes the fixture comparison |
 | 4 | Ingest/assign/publish runbook as a Hermes skill, with the duplicate hash check and `suggestions.json` | Hermes (with Claude for CLI changes) | one real batch processed end to end with Christian's approval |
