@@ -76,6 +76,7 @@ Contract: a command `extract <image> > receipt.json` (or a Python function `extr
 | 6 | Dashboard (section 6) | Codex | Supi can open it on her phone and see balances and the last batches |
 | 7 | Decide Splitwise vs own ledger only | Christian | decision recorded in this file |
 | 8 | Thalassa and 17 Oct restaurant fixtures as regression tests, after the engine recomputes them and Christian signs off the numbers | Claude | tests green |
+| 9 | Bybit Card adapter: Christian pays mostly with Bybit cards. Bybit's V5 API has `POST /v5/card/transaction/query-asset-records` (filters: card digits, merchant, time range; needs an API key with only the Card read permission). Build `bybit_card.py` that lists card transactions for a date window and proposes `card.amount_cents` and currency for a receipt by date and merchant; Christian confirms the match. Key rules: read-only, Card permission only, IP-restricted to the Mac, stored in Hermes' config or the keychain, never in Git or in a cloud session | Codex (Hermes runs it) | the Pepito receipt of 6 Nov gets its 33.44 USD proposed automatically |
 
 ## 6. Dashboard options
 
@@ -95,7 +96,8 @@ Contract: a command `extract <image> > receipt.json` (or a Python function `extr
 
 1. Keep Splitwise as the shared record (manual entry from the sheet) or let the ledger plus dashboard replace it?
 2. Dashboard: Sheet first, vHost later?
-3. Who pays usually? If the card is always Christian's, `paid_by: me` becomes the default and Supi's purchases are the exception.
+3. Who pays usually? If the card is always Christian's Bybit card, `paid_by: me` becomes the default and Supi's purchases are the exception.
+4. Whether to create the Bybit read-only API key now (task 9) or keep typing the card amount by hand for the first weeks.
 
 ## 9. Quick commands
 
