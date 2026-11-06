@@ -2,6 +2,14 @@
 
 Date: 6 November 2026 · Repository `realyou/oreilly_intro_to_mathematical_optimization`, branch `claude/family-expense-splitting-6owct8`, folder `family_split/` · Owner: Christian · Shares with: Supi
 
+## Start here (Hermes, first session)
+
+1. Clone `realyou/oreilly_intro_to_mathematical_optimization`, check out branch `claude/family-expense-splitting-6owct8`, run `cd family_split && python3 tests/test_receiptsplit.py`. Expect 15 passing tests. Read `CONTRACTS.md`, then this file to the end.
+2. Find the local path of the synced Google Drive folder `splits` (family account) and confirm you can list `inbox` and `processing`.
+3. Current state, 6 Nov 2026 evening: two photos sit in `processing` (Pepito and Apotekku of 6 Nov, both already extracted and allocated; see section 10). Two Splitwise drafts are waiting for Christian to enter them: Daughter 8.54 USD (4.27 / 4.27) and Daily Expenses 19.50 USD (9.75 / 9.75), notes in section 10 and in `fixtures/`. Nothing is in a ledger yet. Create `data/ledger.json` by running `publish` for that batch (command in section 9, with the two 6 Nov fixture pairs), then wait for Christian to say "entered" before `done`.
+4. From then on run the pipeline of section 3 every evening or when Christian asks. Ask before every `publish`, never type into Splitwise yourself, never commit anything under `data/` or any photo.
+5. Open items that only Christian can close: editor rights for cccmiller@gmail.com on `splits archive`, the public link on `splits` switched off, the Bybit key decision (task 9), the restaurant fixtures (task 8).
+
 ## 0. Your role, Hermes
 
 You run on Christian's Mac and coordinate three parties: **Christian** (decides, reviews, enters into Splitwise), **Claude Code** (cloud sessions; owns the calculation core, the publisher and the Google Drive ingestion), and **ChatGPT/Codex** (owns the receipt extraction adapter and the dashboard). You are the only process that writes the local ledger and the only one that moves files in the Drive folder. You never publish anything to Splitwise: there is no API access (Splitwise Pro would be required), so publishing means Christian types the entry from a sheet you produce. Nothing leaves "draft" without Christian's explicit approval in the chat.
