@@ -32,23 +32,26 @@ splits/
   inbox/                 new photos, any name, from either phone
   processing/            a photo that an adapter is currently working on
   needs-review/          extraction unsure, or lines unassigned for more than a day
-  processed/2026-11/     photo moved here after its ledger entry is marked done
+  (no processed/ here: done photos move to the separate folder `splits archive`, see below)
   out/2026-11-06/        receipt.json, allocation.json, result.json, sheet.txt per batch
   policy.json            people and target share rules (copy of fixtures/policy.json)
   dashboard/             see section 6
+
+splits archive/          https://drive.google.com/drive/folders/1Kdl-OZnEgk4B7AQpy7bQr-n56GVtZUtS
+  2026-11/               photos moved here after their ledger entry is marked done; read-only for everyone except the mover
 ```
 
 On the Mac: the repo clone, plus `family_split/data/ledger.json` (git-ignored, personal data, backed up by copying it into `splits/out/` daily).
 
 ## 3. The pipeline, step by step
 
-1. **Ingest.** On schedule (every evening) or on request, list `splits/inbox`. For each new photo compute a SHA-256 of the file; if the hash is already in `data/seen.json`, move the photo to `processed/duplicates/` and stop. Otherwise move it to `processing/`.
+1. **Ingest.** On schedule (every evening) or on request, list `splits/inbox`. For each new photo compute a SHA-256 of the file; if the hash is already in `data/seen.json`, move the photo to `splits archive/duplicates/` and stop. Otherwise move it to `processing/`.
 2. **Extract.** Call the extraction adapter (section 4) to produce `receipt.json`. Required: merchant, date, currency, lines with `price_cents`, `total_cents`; per-line `confidence`. Indonesian thousands separators (`15.000` is fifteen thousand) and discount lines (negative) must be handled by the adapter, not by the engine. If any required field is missing or the printed total does not match the lines plus extras within what the receipt itself states, move the photo to `needs-review/` and tell Christian what is unclear, with the raw line text. Never invent a price.
 3. **Assign.** Produce a draft `allocation.json`: `paid_by`, `card` (currency and amount actually charged; ask Christian, he reads it from the bank app or card notification), and a target per line. Suggest targets from history (`data/suggestions.json`, a map from normalized item name to the target Christian chose last time) but mark every suggestion as a suggestion. Lines with no history stay `unassigned`. Show Christian the list; he confirms or corrects in chat; only then write the file.
 4. **Preview.** Run `python3 -m receiptsplit preview --policy splits/policy.json --date <batch date> receipt.json:allocation.json [...]`. Show the sheet and every issue. Unassigned lines appear as a `BLOCKED` block and must be resolved or explicitly parked by Christian.
 5. **Publish (draft).** On Christian's "go": run the same command with `publish --ledger data/ledger.json`. Each target becomes a draft with a fingerprint. A fingerprint that already exists is reported as duplicate and not recorded again.
 6. **Enter in Splitwise.** Christian types each draft into the Splitwise app (description, amount, currency, paid by, split, notes pasted). Or, if he decides to drop Splitwise, this step is skipped and the ledger is the record.
-7. **Done.** Christian says which entries are entered. Run `python3 -m receiptsplit done --ledger data/ledger.json <fingerprint> "<Splitwise reference or note>"`. Then move the photos of that batch from `processing/` to `processed/YYYY-MM/`, copy the batch's JSON and sheet to `out/<batch date>/`, update `suggestions.json` with the confirmed targets, and refresh the dashboard.
+7. **Done.** Christian says which entries are entered. Run `python3 -m receiptsplit done --ledger data/ledger.json <fingerprint> "<Splitwise reference or note>"`. Then move the photos of that batch from `processing/` to `splits archive/YYYY-MM/`, copy the batch's JSON and sheet to `out/<batch date>/`, update `suggestions.json` with the confirmed targets, and refresh the dashboard.
 
 Restaurant bills follow the same steps; the targets are then mostly `personal:me`, `personal:supi` and `shared`.
 
@@ -65,7 +68,7 @@ Contract: a command `extract <image> > receipt.json` (or a Python function `extr
 
 | # | Task | Owner | Done when |
 |---|---|---|---|
-| 1 | `splits` exists on the family account and the subfolders were created on 6 Nov. Still open: restrict sharing to cccmiller@gmail.com as editor (the folder is currently editable by anyone with the link), install Drive desktop sync on the Mac (family account), note the local path, copy `fixtures/policy.json` to `splits/policy.json` (Claude's upload failed: cccmiller quota) | Christian | Hermes can list `inbox` from the shell |
+| 1 | `splits` exists on the family account and the subfolders were created on 6 Nov. Still open: restrict `splits` to cccmiller@gmail.com as editor (currently editable by anyone with the link), give cccmiller@gmail.com editor rights on `splits archive` too (as of 6 Nov it is viewer-only there, so Claude cannot move photos into it; Hermes on the Mac can, through the family account's sync), install Drive desktop sync on the Mac (family account), note the local path, copy `fixtures/policy.json` to `splits/policy.json` (Claude's upload failed: cccmiller quota) | Christian | Hermes can list `inbox` from the shell |
 | 2 | Copy the receipt photos (5 Georgian, Apotekku, Pepito, 3 Thalassa) into `fixtures/receipts/` and the real IDR line prices into the two Nov fixtures | Christian | fixtures reflect the real receipts |
 | 3 | Extraction adapter per section 4 | Codex | adapter passes the fixture comparison |
 | 4 | Ingest/assign/publish runbook as a Hermes skill, with the duplicate hash check and `suggestions.json` | Hermes (with Claude for CLI changes) | one real batch processed end to end with Christian's approval |
