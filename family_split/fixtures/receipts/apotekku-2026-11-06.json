@@ -1,0 +1,51 @@
+{
+  "id": "apotekku-2026-11-06",
+  "merchant": "Apotekku",
+  "date": "2026-11-06",
+  "currency": "IDR",
+  "lines": [
+    {
+      "id": "l1",
+      "name": "IKA Octedine 50 ml",
+      "qty": 1,
+      "price_cents": 5641100,
+      "raw": "IKA OCTEDINE 50ML 1 @56.411 / fls",
+      "confidence": 0.9
+    },
+    {
+      "id": "l2",
+      "name": "Lagesil suspension 100 ml",
+      "qty": 1,
+      "price_cents": 4639000,
+      "raw": "LAGESIL SUSPENSI 100 ML 1 @46.390 / botol",
+      "confidence": 0.9
+    },
+    {
+      "id": "l3",
+      "name": "Altamed nitrile gloves L (100 pcs)",
+      "qty": 100,
+      "price_cents": 8540000,
+      "raw": "ALTAMED NITRIL SIZE L @100 100 @854 / pieces 85.400",
+      "confidence": 0.9
+    },
+    {
+      "id": "l4",
+      "name": "Youvit Multivitamin for Kids (30 days)",
+      "qty": 1,
+      "price_cents": 8451200,
+      "raw": "YOUVIT MULTIVITAMIN FOR KIDS 30 DAYS POUCH 1 @84.512 / bungkus",
+      "confidence": 0.9
+    }
+  ],
+  "subtotal_cents": 27271300,
+  "tax_cents": 0,
+  "service_cents": 0,
+  "discount_cents": 0,
+  "total_cents": 27271300,
+  "source": {
+    "image": "splits/inbox/1793980851392.jpg",
+    "drive_file_id": "1YI70sUTMAw-Y55WJaks3g-TwN9TGuNLg",
+    "extractor": "google-drive-ocr + manual",
+    "notes": "ApotekKU HP Munggu, 09:19, receipt NS-005-2611-000905. PPN 11% included (DPP 245,687.39 + 27,026 = 272,713). Receipt prints 'DEBIT BCA' as payment method; card charge 15.39 USD per Christian."
+  }
+}

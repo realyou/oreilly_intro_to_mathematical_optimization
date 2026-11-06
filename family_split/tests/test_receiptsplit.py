@@ -157,10 +157,29 @@ def test_real_pepito_receipt_idr_to_usd():
     res = allocate([r], [a], POLICY)
     check_invariants(res)
     t = res["targets"]
-    assert (t["daughter"]["card_cents"], t["daily"]["card_cents"], t["unassigned"]["card_cents"]) == (377, 1468, 1499)
+    assert (t["daughter"]["card_cents"], t["daily"]["card_cents"], t["personal:me"]["card_cents"]) == (377, 1468, 1499)
     assert abs(res["receipts"][0]["implied_rate"] - 3344 / 59248400) < 1e-12
     notes = render_notes(t["daily"], "USD", POLICY)
     assert notes.endswith("----\nTotal: $14.68") and "$4.97 Earth Choice CLR Aqua 750 ml" in notes
+
+
+def test_real_batch_6_nov_apotekku_and_pepito():
+    """Both real 6 Nov receipts in one batch: one expense per target, Christian's own items stay out of Splitwise."""
+    recs, allocs = zip(load("apotekku-2026-11-06"), load("pepito-2026-11-06"))
+    res = allocate(recs, allocs, POLICY)
+    check_invariants(res)
+    assert res["ok"] and not [i for i in res["issues"] if i["level"] == "warning"]
+    t = res["targets"]
+    assert t["daughter"]["card_cents"] == 477 + 377 == 854
+    assert t["daily"]["card_cents"] == 482 + 1468 == 1950
+    assert t["personal:me"]["card_cents"] == 580 + 1499 == 2079
+    assert res["card_total_cents"] == 1539 + 3344
+    reqs = {r["target"]: r for r in build_publish_requests(res, POLICY, "2026-11-06")}
+    assert reqs["daughter"]["owed_cents"] == {"me": 427, "supi": 427}
+    assert reqs["daily"]["owed_cents"] == {"me": 975, "supi": 975}
+    assert reqs["personal:me"]["owed_cents"] == {"me": 2079} and reqs["personal:me"]["status"] == "self"
+    assert reqs["daughter"]["status"] == reqs["daily"]["status"] == "draft"
+    assert render_notes(t["daughter"], "USD", POLICY).startswith("Apotekku — 06 Nov 2026\n$4.77 Youvit Multivitamin for Kids (30 days)\n\nPepito Market — 06 Nov 2026\n$3.04 ")
 
 
 # ---------- edge cases ----------

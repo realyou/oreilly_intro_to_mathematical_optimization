@@ -16,8 +16,8 @@ Assumptions about you, to confirm on first run: shell and file access on the Mac
   - `publish.py`: one request per target with owed shares and a fingerprint. `ledger.py`: local JSON ledger that refuses fingerprints it has seen.
   - `__main__.py`: CLI `preview`, `publish`, `done`.
 - `family_split/CONTRACTS.md`: the JSON shapes every party must respect. Read it before writing any adapter.
-- `family_split/fixtures/`: policy, five Georgian restaurant receipts (Sep 2026), the real Pepito receipt of 6 Nov (IDR, from Drive OCR, section 10) and a synthetic USD version of the 6 Nov Apotekku/Pepito batch (`example-usd-*`) that reproduces the handover figures (8.55 / 19.49 / 20.79, total 48.83) and the notes byte for byte.
-- `family_split/tests/test_receiptsplit.py`: 14 tests, all green. Run with `cd family_split && python3 tests/test_receiptsplit.py` or `python3 -m pytest`.
+- `family_split/fixtures/`: policy, five Georgian restaurant receipts (Sep 2026), the real Apotekku and Pepito receipts of 6 Nov (IDR, from Drive OCR, section 10) and a synthetic USD version of the 6 Nov Apotekku/Pepito batch (`example-usd-*`) that reproduces the handover figures (8.55 / 19.49 / 20.79, total 48.83) and the notes byte for byte.
+- `family_split/tests/test_receiptsplit.py`: 15 tests, all green. Run with `cd family_split && python3 tests/test_receiptsplit.py` or `python3 -m pytest`.
 - `family_split/index.html`: the September "Familienkasse" page, a shared family ledger on claude.ai. Untouched, unused, optional. Not part of this pipeline.
 - `family_split/ASSESSMENT-2026-11-06.md`: why these decisions were taken (Splitwise API, the two MCP servers, ShareTab, Spliit).
 
@@ -69,7 +69,7 @@ Contract: a command `extract <image> > receipt.json` (or a Python function `extr
 | # | Task | Owner | Done when |
 |---|---|---|---|
 | 1 | `splits` exists on the family account and the subfolders were created on 6 Nov. Still open: restrict `splits` to cccmiller@gmail.com as editor (currently editable by anyone with the link), give cccmiller@gmail.com editor rights on `splits archive` too (as of 6 Nov it is viewer-only there, so Claude cannot move photos into it; Hermes on the Mac can, through the family account's sync), install Drive desktop sync on the Mac (family account), note the local path, copy `fixtures/policy.json` to `splits/policy.json` (Claude's upload failed: cccmiller quota) | Christian | Hermes can list `inbox` from the shell |
-| 2 | Copy the receipt photos (5 Georgian, Apotekku, 3 Thalassa) into `fixtures/receipts/`; Pepito is done (section 10), Apotekku still needs its photo in `inbox` | Christian | fixtures reflect the real receipts |
+| 2 | Copy the receipt photos (5 Georgian, 3 Thalassa) into `fixtures/receipts/`; Apotekku and Pepito are done (section 10) | Christian | fixtures reflect the real receipts |
 | 3 | Extraction adapter per section 4 | Codex | adapter passes the fixture comparison |
 | 4 | Ingest/assign/publish runbook as a Hermes skill, with the duplicate hash check and `suggestions.json` | Hermes (with Claude for CLI changes) | one real batch processed end to end with Christian's approval |
 | 5 | `assign` helper in the CLI: takes receipt.json plus a short text like `l1 daughter, l2 daily, rest shared` and writes allocation.json | Claude | tests added, used by task 4 |
@@ -113,23 +113,23 @@ python3 -m receiptsplit done --ledger data/ledger.json <fingerprint> "entered in
 
 ## 10. First run, 6 November 2026 (done by Claude by hand, as the template for Hermes)
 
-**Input.** One photo in `splits/inbox`, `1793980851372.jpg`: the real Pepito Market receipt from 6 Nov, 09:07, 11 items, 592,484 IDR paid, card charge 33.44 USD (from the earlier handover). The Apotekku photo of the same day was not in the inbox.
+**Input.** Two photos in `splits/inbox`, both from 6 Nov: the Pepito Market receipt (11 items, 592,484 IDR, card 33.44 USD) and the Apotekku pharmacy receipt (4 items, 272,713 IDR, card 15.39 USD; the receipt itself prints "DEBIT BCA" as the payment method, the USD amount is Christian's). Lesson: the first listing of `inbox` showed only one of the two files although both had been uploaded in the same second; Drive's search index lags. Hermes lists the folder twice a minute apart, or reads the synced folder on disk, before deciding the inbox is empty.
 
-**Extraction.** Google Drive's own OCR (what the Drive connector returns for an image) read every line and price correctly, including the per-kilo lines. It misread the pre-discount total ("595,594" instead of 595,584); the tax block on the receipt (265,584 non-PPN + 294,505 taxable + 32,395 PPN = 592,484) confirmed the right figure. That cross-check is now a rule for the adapter: when a receipt prints a tax block, reconcile the total against it. PPN 11 % is included in the prices, so extras are zero. The Merries discount (3,100) was folded into the Merries line (57,000 to 53,900). Result: `fixtures/receipts/pepito-2026-11-06.json`.
+**Extraction.** Google Drive's own OCR (what the Drive connector returns for an image) read every line and price of both receipts correctly, including per-kilo lines. On Pepito it misread the pre-discount total ("595,594" instead of 595,584); the tax block (265,584 non-PPN + 294,505 taxable + 32,395 PPN = 592,484) settled it. Rule for the adapter: when a receipt prints a tax block, reconcile the total against it. Both receipts include PPN 11 % in the prices, so extras are zero. The Merries campaign discount (3,100) was folded into the Merries line. Results: `fixtures/receipts/pepito-2026-11-06.json`, `fixtures/receipts/apotekku-2026-11-06.json`.
 
-**Allocation** (`fixtures/allocations/pepito-2026-11-06.json`, from the earlier handover, to be confirmed by Christian): Merries and Paseo to Daughter, the two Earth Choice and Dr. Beckmann to Daily, the six fresh-food lines unassigned.
+**Allocation** (confirmed by Christian): Youvit, Merries, Paseo to Daughter; Altamed, the two Earth Choice, Dr. Beckmann to Daily; everything else (IKA, Lagesil, the six fresh-food lines) is Christian's own, target `personal:me`.
 
-**Engine result** (exact, card USD 33.44 over 592,484 IDR, implied rate 17,718 IDR per USD):
+**Engine result** (exact, both card charges, implied rate about 17,720 IDR per USD):
 
-| Target | USD | Earlier ChatGPT figure |
-|---|---:|---:|
-| Daughter | 3.77 | 3.78 |
-| Daily Expenses | 14.68 | 14.67 |
-| Unassigned | 14.99 | 14.99 |
-| Total | 33.44 | 33.44 |
+| Target | USD | Earlier ChatGPT figure | Splitwise |
+|---|---:|---:|---|
+| Daughter | 8.54 | 8.55 | enter, 4.27 / 4.27 |
+| Daily Expenses | 19.50 | 19.49 | enter, 9.75 / 9.75 |
+| Christian only | 20.79 | 20.79 | nothing to enter (paid and owed by the same person) |
+| Total | 48.83 | 48.83 | |
 
-The one-cent differences come from rounding: the engine rounds every line to the cent by largest remainder so the notes add up exactly; the earlier figures rounded lines independently (Paseo 0.74 vs 0.73, Earth Choice 4.96 vs 4.97, Dr. Beckmann 4.75 vs 4.74). The engine's figures are the ones to use from now on.
+The one-cent differences come from rounding: the engine rounds every line by largest remainder so the notes add up exactly; the earlier figures rounded lines independently (Paseo 0.74 vs 0.73, Earth Choice 4.96 vs 4.97, Dr. Beckmann 4.75 vs 4.74). The Apotekku lines match to the cent. The engine's figures are the ones to use from now on. The publisher now marks a block whose only debtor is the payer as `self`, so it never produces a pointless Splitwise entry.
 
-**State after the run.** The photo was moved from `inbox` to `processing`. Nothing was recorded in a ledger and nothing was entered in Splitwise: the run stops at the sheet until Christian confirms the six unassigned lines and the 33.44 USD. The sheet could not be written to `splits/out/` (cccmiller quota); Hermes writes it there on the Mac.
+**State after the run.** Both photos were moved from `inbox` to `processing`. Nothing was recorded in a ledger and nothing was entered in Splitwise. Christian enters the two drafts (Daughter 8.54, Daily 19.50, notes from the sheet) when he wants them in Splitwise, then Hermes marks them done and moves the photos to `splits archive/2026-11/`. The sheet could not be written to `splits/out/` (cccmiller quota); Hermes writes it there on the Mac.
 
-**What Hermes does differently.** Hermes has no Drive OCR on the Mac; it uses a vision model (section 4) and may additionally pull Drive's OCR text through the Drive API as a second opinion. Everything else is the same sequence: hash check, extract, reconcile against the tax block, draft allocation from `suggestions.json` (seeded with this run: Merries and Paseo to daughter, Earth Choice and Dr. Beckmann to daily), ask Christian, preview, publish to the ledger on his go, mark done, move to `splits archive/2026-11/`.
+**What Hermes does differently.** Hermes has no Drive OCR on the Mac; it uses a vision model (section 4) and may additionally pull Drive's OCR text through the Drive API as a second opinion. Everything else is the same sequence: hash check, extract, reconcile against the tax block, draft allocation from `suggestions.json` (seeded with this run: Youvit, Merries, Paseo to daughter; Altamed, Earth Choice, Dr. Beckmann to daily; fresh food and medicines to Christian), ask Christian, preview, publish to the ledger on his go, mark done, move to `splits archive/2026-11/`.

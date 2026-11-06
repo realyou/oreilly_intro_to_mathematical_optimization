@@ -50,7 +50,10 @@ def build_publish_requests(result: dict, policy: Policy, batch_date: str, paid_b
         else:
             shares = policy.shares(target)
             req["owed_cents"] = distribute(cost, shares, list(shares.keys())) if cost else {p: 0 for p in shares}
-            req["status"] = "draft"
+            if set(shares) == {paid_by}:
+                req.update({"status": "self", "reason": "paid and owed by the same person: nothing to enter in Splitwise"})
+            else:
+                req["status"] = "draft"
         reqs.append(req)
     return reqs
 
@@ -62,7 +65,9 @@ def render_sheet(requests: List[dict], policy: Policy) -> str:
         head = [f"=== {r['label']} · {r['cost']} · {r['status'].upper()} ===",
                 f"Description: {r['description']}",
                 f"Paid by: {policy.people.get(r['paid_by'], r['paid_by'])}"]
-        if r["owed_cents"]:
+        if r["status"] == "self":
+            head.append(f"No Splitwise entry: {r['reason']}")
+        elif r["owed_cents"]:
             head.append("Split: " + ", ".join(f"{policy.people.get(p, p)} {fmt_money(c, r['currency'], {})}" for p, c in r["owed_cents"].items()))
         else:
             head.append(f"Blocked: {r.get('reason', '')}")

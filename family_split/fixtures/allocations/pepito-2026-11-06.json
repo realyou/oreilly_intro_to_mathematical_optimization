@@ -22,22 +22,22 @@
       "target": "daily"
     },
     "l1": {
-      "target": "unassigned"
+      "target": "personal:me"
     },
     "l2": {
-      "target": "unassigned"
+      "target": "personal:me"
     },
     "l3": {
-      "target": "unassigned"
+      "target": "personal:me"
     },
     "l4": {
-      "target": "unassigned"
+      "target": "personal:me"
     },
     "l5": {
-      "target": "unassigned"
+      "target": "personal:me"
     },
     "l6": {
-      "target": "unassigned"
+      "target": "personal:me"
     }
   }
 }
