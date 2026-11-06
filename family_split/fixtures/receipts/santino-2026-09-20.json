@@ -1,0 +1,45 @@
+{
+  "id": "santino-2026-09-20",
+  "merchant": "Santino",
+  "date": "2026-09-20",
+  "currency": "GEL",
+  "lines": [
+    {
+      "id": "l1",
+      "name": "Scramble with Vegetables",
+      "qty": 1,
+      "price_cents": 1700,
+      "raw": "Scramble with Vegetables 1.00 17.00",
+      "confidence": 0.95
+    },
+    {
+      "id": "l2",
+      "name": "Shoti",
+      "qty": 1,
+      "price_cents": 200,
+      "raw": "Shoti 1.00 2.00",
+      "confidence": 0.95
+    },
+    {
+      "id": "l3",
+      "name": "Lemonade Natural",
+      "qty": 1,
+      "price_cents": 800,
+      "raw": "Lemonade Natural 1.00 8.00",
+      "confidence": 0.95
+    },
+    {
+      "id": "l4",
+      "name": "Alt. Matcha Latte Almond 260ml (+4.00)",
+      "qty": 1,
+      "price_cents": 1900,
+      "raw": "Alt. Matcha Latte 1.00 19.00",
+      "confidence": 0.95
+    }
+  ],
+  "total_cents": 4600,
+  "source": {
+    "image": "fixtures/receipts/santino-2026-09-20.jpg",
+    "extractor": "manual-from-photo"
+  }
+}

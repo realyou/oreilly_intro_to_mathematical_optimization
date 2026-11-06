@@ -1,0 +1,45 @@
+{
+  "id": "apotekku-2026-11-06",
+  "merchant": "Apotekku",
+  "date": "2026-11-06",
+  "currency": "USD",
+  "lines": [
+    {
+      "id": "l1",
+      "name": "Youvit Multivitamin for Kids (30 days)",
+      "qty": 1,
+      "price_cents": 477,
+      "raw": "",
+      "confidence": 0.95
+    },
+    {
+      "id": "l2",
+      "name": "Altamed nitrile gloves L (100 pcs)",
+      "qty": 1,
+      "price_cents": 482,
+      "raw": "",
+      "confidence": 0.95
+    },
+    {
+      "id": "l3",
+      "name": "IKA Octedine",
+      "qty": 1,
+      "price_cents": 310,
+      "raw": "",
+      "confidence": 0.95
+    },
+    {
+      "id": "l4",
+      "name": "Lagesil",
+      "qty": 1,
+      "price_cents": 270,
+      "raw": "",
+      "confidence": 0.95
+    }
+  ],
+  "total_cents": 1539,
+  "source": {
+    "image": "fixtures/receipts/apotekku-2026-11-06.jpg",
+    "extractor": "manual-from-photo"
+  }
+}

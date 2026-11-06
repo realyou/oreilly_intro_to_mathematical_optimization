@@ -1,0 +1,22 @@
+{
+  "receipt_id": "veriko-2026-09-21",
+  "paid_by": "supi",
+  "lines": {
+    "l1": {
+      "target": "shared"
+    },
+    "l2": {
+      "target": "shared"
+    },
+    "l3": {
+      "target": "personal:me"
+    },
+    "l4": {
+      "target": "personal:supi"
+    }
+  },
+  "card": {
+    "currency": "EUR",
+    "amount_cents": 4216
+  }
+}

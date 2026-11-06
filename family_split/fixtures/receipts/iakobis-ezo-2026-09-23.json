@@ -1,0 +1,77 @@
+{
+  "id": "iakobis-ezo-2026-09-23",
+  "merchant": "Iakobis Ezo",
+  "date": "2026-09-23",
+  "currency": "GEL",
+  "lines": [
+    {
+      "id": "l1",
+      "name": "Green Tea",
+      "qty": 1,
+      "price_cents": 900,
+      "raw": "Green Tea 1 9.00",
+      "confidence": 0.95
+    },
+    {
+      "id": "l2",
+      "name": "Sparkling Water BORJOMI",
+      "qty": 1,
+      "price_cents": 600,
+      "raw": "Sparkling Water BORJOMI 1 6.00",
+      "confidence": 0.95
+    },
+    {
+      "id": "l3",
+      "name": "500ml Still Water",
+      "qty": 1,
+      "price_cents": 800,
+      "raw": "500ml Still Water 1 8.00",
+      "confidence": 0.95
+    },
+    {
+      "id": "l4",
+      "name": "Filet Mignon with Demi-Glace Sauce, med rare",
+      "qty": 1,
+      "price_cents": 6900,
+      "raw": "Filet Mignon with Demi-Glace Sauce 1 69.00",
+      "confidence": 0.95
+    },
+    {
+      "id": "l5",
+      "name": "Cauliflower Bites",
+      "qty": 1,
+      "price_cents": 1900,
+      "raw": "Cauliflower Bites 1 19.00",
+      "confidence": 0.95
+    },
+    {
+      "id": "l6",
+      "name": "Baked Goat Cheese Salad",
+      "qty": 1,
+      "price_cents": 3300,
+      "raw": "Baked Goat Cheese Salad 1 33.00",
+      "confidence": 0.95
+    },
+    {
+      "id": "l7",
+      "name": "Jonjoli Hummus",
+      "qty": 1,
+      "price_cents": 2200,
+      "raw": "Jonjoli Hummus 1 22.00",
+      "confidence": 0.95
+    },
+    {
+      "id": "l8",
+      "name": "Chocolate Mousse",
+      "qty": 1,
+      "price_cents": 2100,
+      "raw": "Chocolate Mousse 1 21.00",
+      "confidence": 0.95
+    }
+  ],
+  "total_cents": 18700,
+  "source": {
+    "image": "fixtures/receipts/iakobis-ezo-2026-09-23.jpg",
+    "extractor": "manual-from-photo"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "id": "ezo-2026-09-22",
+  "merchant": "Ezo",
+  "date": "2026-09-22",
+  "currency": "GEL",
+  "lines": [
+    {
+      "id": "l1",
+      "name": "Salmon steak with sweet and sour sauce",
+      "qty": 1,
+      "price_cents": 4900,
+      "raw": "ორაგულის სტეიკი 1 49.00",
+      "confidence": 0.95
+    },
+    {
+      "id": "l2",
+      "name": "Grilled vegetables",
+      "qty": 1,
+      "price_cents": 1900,
+      "raw": "ბოსტნეული გრილზე 1 19.00",
+      "confidence": 0.95
+    },
+    {
+      "id": "l3",
+      "name": "Hummus board",
+      "qty": 1,
+      "price_cents": 2500,
+      "raw": "ჰუმუსის დაფა 1 25.00",
+      "confidence": 0.95
+    },
+    {
+      "id": "l4",
+      "name": "Potato cheese balls",
+      "qty": 1,
+      "price_cents": 2200,
+      "raw": "კარტოფილის ყველიანი ბურთულები 1 22.00",
+      "confidence": 0.95
+    },
+    {
+      "id": "l5",
+      "name": "Nabeghlavi water",
+      "qty": 1,
+      "price_cents": 600,
+      "raw": "ნაბეღლავი/კობი 1 6.00",
+      "confidence": 0.95
+    },
+    {
+      "id": "l6",
+      "name": "Ice cream with fruit / almonds",
+      "qty": 1,
+      "price_cents": 1100,
+      "raw": "ნაყინი ხილით/ნუშით 1 11.00",
+      "confidence": 0.95
+    }
+  ],
+  "total_cents": 13200,
+  "subtotal_cents": 13200,
+  "tax_cents": 0,
+  "service_cents": 0,
+  "discount_cents": 0,
+  "source": {
+    "image": "fixtures/receipts/ezo-2026-09-22.jpg",
+    "extractor": "manual-from-photo"
+  }
+}

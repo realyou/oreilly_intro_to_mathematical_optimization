@@ -1,0 +1,22 @@
+{
+  "receipt_id": "santino-2026-09-20",
+  "paid_by": "me",
+  "lines": {
+    "l1": {
+      "target": "personal:supi"
+    },
+    "l2": {
+      "target": "shared"
+    },
+    "l3": {
+      "target": "personal:me"
+    },
+    "l4": {
+      "target": "personal:supi"
+    }
+  },
+  "card": {
+    "currency": "EUR",
+    "amount_cents": 1564
+  }
+}

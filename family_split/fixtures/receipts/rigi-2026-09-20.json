@@ -1,0 +1,65 @@
+{
+  "id": "rigi-2026-09-20",
+  "merchant": "Rigi Gastrodouqan",
+  "date": "2026-09-20",
+  "currency": "GEL",
+  "lines": [
+    {
+      "id": "l1",
+      "name": "Mineral Water Borjomi",
+      "qty": 2,
+      "price_cents": 932,
+      "raw": "2 Mineral Water Borjomi 9.32",
+      "confidence": 0.95
+    },
+    {
+      "id": "l2",
+      "name": "Khoncha",
+      "qty": 1,
+      "price_cents": 3220,
+      "raw": "1 Khoncha 32.20",
+      "confidence": 0.95
+    },
+    {
+      "id": "l3",
+      "name": "Mushroom Soup",
+      "qty": 1,
+      "price_cents": 1864,
+      "raw": "1 Mushroom Soup 18.64",
+      "confidence": 0.95
+    },
+    {
+      "id": "l4",
+      "name": "Beef Stew in Phyllo Dough",
+      "qty": 1,
+      "price_cents": 5508,
+      "raw": "1 Beef Stew in Phyllo Dough 55.08",
+      "confidence": 0.95
+    },
+    {
+      "id": "l5",
+      "name": "Lomtagora shoti bread",
+      "qty": 1,
+      "price_cents": 254,
+      "raw": "1 Lomtagora shoti bread 2.54",
+      "confidence": 0.95
+    },
+    {
+      "id": "l6",
+      "name": "Matsoni Ice Cream",
+      "qty": 1,
+      "price_cents": 1525,
+      "raw": "1 Matsoni Ice Cream 15.25",
+      "confidence": 0.95
+    }
+  ],
+  "total_cents": 15698,
+  "subtotal_cents": 13303,
+  "tax_cents": 2395,
+  "service_cents": 0,
+  "discount_cents": 0,
+  "source": {
+    "image": "fixtures/receipts/rigi-2026-09-20.jpg",
+    "extractor": "manual-from-photo"
+  }
+}

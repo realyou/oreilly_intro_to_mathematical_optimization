@@ -1,0 +1,22 @@
+{
+  "receipt_id": "apotekku-2026-11-06",
+  "paid_by": "me",
+  "lines": {
+    "l1": {
+      "target": "daughter"
+    },
+    "l2": {
+      "target": "daily"
+    },
+    "l3": {
+      "target": "unassigned"
+    },
+    "l4": {
+      "target": "unassigned"
+    }
+  },
+  "card": {
+    "currency": "USD",
+    "amount_cents": 1539
+  }
+}

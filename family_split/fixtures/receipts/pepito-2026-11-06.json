@@ -1,0 +1,61 @@
+{
+  "id": "pepito-2026-11-06",
+  "merchant": "Pepito Market",
+  "date": "2026-11-06",
+  "currency": "USD",
+  "lines": [
+    {
+      "id": "l1",
+      "name": "Merries diapers L",
+      "qty": 1,
+      "price_cents": 304,
+      "raw": "",
+      "confidence": 0.95
+    },
+    {
+      "id": "l2",
+      "name": "Paseo antibacterial wipes (25 sheets)",
+      "qty": 1,
+      "price_cents": 74,
+      "raw": "",
+      "confidence": 0.95
+    },
+    {
+      "id": "l3",
+      "name": "Earth Choice CLR Aqua 750 ml",
+      "qty": 1,
+      "price_cents": 496,
+      "raw": "",
+      "confidence": 0.95
+    },
+    {
+      "id": "l4",
+      "name": "Earth Choice Shower Clean 600 ml",
+      "qty": 1,
+      "price_cents": 496,
+      "raw": "",
+      "confidence": 0.95
+    },
+    {
+      "id": "l5",
+      "name": "Dr. Beckmann Washing Machine Cleaner 250 ml",
+      "qty": 1,
+      "price_cents": 475,
+      "raw": "",
+      "confidence": 0.95
+    },
+    {
+      "id": "l6",
+      "name": "Other groceries",
+      "qty": 1,
+      "price_cents": 1499,
+      "raw": "",
+      "confidence": 0.95
+    }
+  ],
+  "total_cents": 3344,
+  "source": {
+    "image": "fixtures/receipts/pepito-2026-11-06.jpg",
+    "extractor": "manual-from-photo"
+  }
+}

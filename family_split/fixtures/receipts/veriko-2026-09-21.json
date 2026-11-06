@@ -1,0 +1,45 @@
+{
+  "id": "veriko-2026-09-21",
+  "merchant": "Veriko Restaurant",
+  "date": "2026-09-21",
+  "currency": "GEL",
+  "lines": [
+    {
+      "id": "l1",
+      "name": "Borjomi 0.5",
+      "qty": 1,
+      "price_cents": 600,
+      "raw": "Borjomi 0.5 1 6.00",
+      "confidence": 0.95
+    },
+    {
+      "id": "l2",
+      "name": "Eggplant with walnuts",
+      "qty": 1,
+      "price_cents": 2800,
+      "raw": "ბადრიჯანი ნიგვზით 1 28.00",
+      "confidence": 0.95
+    },
+    {
+      "id": "l3",
+      "name": "Roasted cauliflower",
+      "qty": 1,
+      "price_cents": 2800,
+      "raw": "მობრაწული ყვავილოვანი კომბოსტო 1 28.00",
+      "confidence": 0.95
+    },
+    {
+      "id": "l4",
+      "name": "Salmon steak",
+      "qty": 1,
+      "price_cents": 6200,
+      "raw": "ორაგულის სტეიკი 1 62.00",
+      "confidence": 0.95
+    }
+  ],
+  "total_cents": 12400,
+  "source": {
+    "image": "fixtures/receipts/veriko-2026-09-21.jpg",
+    "extractor": "manual-from-photo"
+  }
+}

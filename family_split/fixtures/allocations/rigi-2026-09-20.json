@@ -1,0 +1,28 @@
+{
+  "receipt_id": "rigi-2026-09-20",
+  "paid_by": "me",
+  "lines": {
+    "l1": {
+      "target": "shared"
+    },
+    "l2": {
+      "target": "shared"
+    },
+    "l3": {
+      "target": "personal:me"
+    },
+    "l4": {
+      "target": "personal:supi"
+    },
+    "l5": {
+      "target": "shared"
+    },
+    "l6": {
+      "target": "personal:supi"
+    }
+  },
+  "card": {
+    "currency": "EUR",
+    "amount_cents": 5337
+  }
+}

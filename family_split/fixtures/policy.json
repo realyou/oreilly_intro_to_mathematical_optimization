@@ -1,0 +1,49 @@
+{
+  "people": {
+    "me": "Christian",
+    "supi": "Supi"
+  },
+  "targets": {
+    "daughter": {
+      "label": "Daughter",
+      "shares": {
+        "me": 1,
+        "supi": 1
+      }
+    },
+    "daily": {
+      "label": "Daily Expenses",
+      "shares": {
+        "me": 1,
+        "supi": 1
+      }
+    },
+    "shared": {
+      "label": "Shared",
+      "shares": {
+        "me": 1,
+        "supi": 1
+      }
+    },
+    "personal:me": {
+      "label": "Christian only",
+      "shares": {
+        "me": 1
+      }
+    },
+    "personal:supi": {
+      "label": "Supi only",
+      "shares": {
+        "supi": 1
+      }
+    }
+  },
+  "notes": {
+    "date_format": "%d %b %Y",
+    "currency_symbols": {
+      "USD": "$",
+      "EUR": "\u20ac",
+      "GBP": "\u00a3"
+    }
+  }
+}

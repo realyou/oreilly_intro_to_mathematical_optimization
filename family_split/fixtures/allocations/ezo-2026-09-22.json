@@ -1,0 +1,28 @@
+{
+  "receipt_id": "ezo-2026-09-22",
+  "paid_by": "me",
+  "lines": {
+    "l1": {
+      "target": "personal:supi"
+    },
+    "l2": {
+      "target": "shared"
+    },
+    "l3": {
+      "target": "shared"
+    },
+    "l4": {
+      "target": "shared"
+    },
+    "l5": {
+      "target": "shared"
+    },
+    "l6": {
+      "target": "personal:me"
+    }
+  },
+  "card": {
+    "currency": "EUR",
+    "amount_cents": 4488
+  }
+}
