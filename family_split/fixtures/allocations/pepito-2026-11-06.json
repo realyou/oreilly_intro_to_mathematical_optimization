@@ -1,28 +1,43 @@
 {
   "receipt_id": "pepito-2026-11-06",
   "paid_by": "me",
+  "card": {
+    "currency": "USD",
+    "amount_cents": 3344
+  },
   "lines": {
-    "l1": {
+    "l7": {
       "target": "daughter"
+    },
+    "l11": {
+      "target": "daughter"
+    },
+    "l8": {
+      "target": "daily"
+    },
+    "l9": {
+      "target": "daily"
+    },
+    "l10": {
+      "target": "daily"
+    },
+    "l1": {
+      "target": "unassigned"
     },
     "l2": {
-      "target": "daughter"
+      "target": "unassigned"
     },
     "l3": {
-      "target": "daily"
+      "target": "unassigned"
     },
     "l4": {
-      "target": "daily"
+      "target": "unassigned"
     },
     "l5": {
-      "target": "daily"
+      "target": "unassigned"
     },
     "l6": {
       "target": "unassigned"
     }
-  },
-  "card": {
-    "currency": "USD",
-    "amount_cents": 3344
   }
 }

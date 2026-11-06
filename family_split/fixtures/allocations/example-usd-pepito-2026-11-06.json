@@ -1,0 +1,28 @@
+{
+  "receipt_id": "example-usd-pepito-2026-11-06",
+  "paid_by": "me",
+  "lines": {
+    "l1": {
+      "target": "daughter"
+    },
+    "l2": {
+      "target": "daughter"
+    },
+    "l3": {
+      "target": "daily"
+    },
+    "l4": {
+      "target": "daily"
+    },
+    "l5": {
+      "target": "daily"
+    },
+    "l6": {
+      "target": "unassigned"
+    }
+  },
+  "card": {
+    "currency": "USD",
+    "amount_cents": 3344
+  }
+}

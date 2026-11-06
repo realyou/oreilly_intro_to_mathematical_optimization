@@ -1,5 +1,5 @@
 {
-  "id": "apotekku-2026-11-06",
+  "id": "example-usd-apotekku-2026-11-06",
   "merchant": "Apotekku",
   "date": "2026-11-06",
   "currency": "USD",
@@ -39,7 +39,6 @@
   ],
   "total_cents": 1539,
   "source": {
-    "image": "fixtures/receipts/apotekku-2026-11-06.jpg",
-    "extractor": "manual-from-photo"
+    "note": "synthetic USD example from the 6 Nov handover; line prices are the quoted USD amounts, not the receipt"
   }
 }

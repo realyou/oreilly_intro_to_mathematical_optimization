@@ -2,60 +2,106 @@
   "id": "pepito-2026-11-06",
   "merchant": "Pepito Market",
   "date": "2026-11-06",
-  "currency": "USD",
+  "currency": "IDR",
   "lines": [
     {
       "id": "l1",
-      "name": "Merries diapers L",
-      "qty": 1,
-      "price_cents": 304,
-      "raw": "",
-      "confidence": 0.95
+      "name": "Chicken fillet 0.420 kg",
+      "qty": 0.42,
+      "price_cents": 3318000,
+      "raw": "CHICKEN FILLET KG 0.420 79.000 33,180",
+      "confidence": 0.9
     },
     {
       "id": "l2",
-      "name": "Paseo antibacterial wipes (25 sheets)",
-      "qty": 1,
-      "price_cents": 74,
-      "raw": "",
-      "confidence": 0.95
+      "name": "Barramundi fillet 0.512 kg",
+      "qty": 0.512,
+      "price_cents": 13952000,
+      "raw": "BARAMUNDI FLT 0512 272,500 139,520",
+      "confidence": 0.9
     },
     {
       "id": "l3",
-      "name": "Earth Choice CLR Aqua 750 ml",
-      "qty": 1,
-      "price_cents": 496,
-      "raw": "",
-      "confidence": 0.95
+      "name": "Broccoli import 0.416 kg",
+      "qty": 0.416,
+      "price_cents": 2288000,
+      "raw": "BROCCOLI IMPORT KG 0.416 55.000 22,880",
+      "confidence": 0.9
     },
     {
       "id": "l4",
-      "name": "Earth Choice Shower Clean 600 ml",
-      "qty": 1,
-      "price_cents": 496,
-      "raw": "",
-      "confidence": 0.95
+      "name": "Watermelon red 2.410 kg",
+      "qty": 2.41,
+      "price_cents": 3012500,
+      "raw": "SEMANGKA MERAH NB 2.410 12.500 30,125",
+      "confidence": 0.9
     },
     {
       "id": "l5",
-      "name": "Dr. Beckmann Washing Machine Cleaner 250 ml",
-      "qty": 1,
-      "price_cents": 475,
-      "raw": "",
-      "confidence": 0.95
+      "name": "Avocado 0.266 kg",
+      "qty": 0.266,
+      "price_cents": 1170400,
+      "raw": "ALPUKAT 0266 44,000 11,704",
+      "confidence": 0.9
     },
     {
       "id": "l6",
-      "name": "Other groceries",
+      "name": "Avocado butter super 0.490 kg",
+      "qty": 0.49,
+      "price_cents": 2817500,
+      "raw": "ALPUKAT MENTEGA SUPER 500GR UP KG 0.490 57,500 28,175",
+      "confidence": 0.9
+    },
+    {
+      "id": "l7",
+      "name": "Merries Pants Good SL (57,000 less 3,100 campaign discount)",
       "qty": 1,
-      "price_cents": 1499,
-      "raw": "",
-      "confidence": 0.95
+      "price_cents": 5390000,
+      "raw": "MERRIES P.GOOD SL 1.000 57.000 3,100 53,900",
+      "confidence": 0.9
+    },
+    {
+      "id": "l8",
+      "name": "Earth Choice CLR Aqua 750 ml",
+      "qty": 1,
+      "price_cents": 8800000,
+      "raw": "EARTH CHOICE CLR AQUA750ML 1.000 88,000",
+      "confidence": 0.9
+    },
+    {
+      "id": "l9",
+      "name": "Earth Choice Shower Clean 600 ml",
+      "qty": 1,
+      "price_cents": 8800000,
+      "raw": "EARTH CHOICE SHOWER CLEAN 600ML 1.000 88,000",
+      "confidence": 0.9
+    },
+    {
+      "id": "l10",
+      "name": "Dr. Beckmann Washing Machine Cleaner 250 ml",
+      "qty": 1,
+      "price_cents": 8400000,
+      "raw": "DR BECKMN WSH&MACH CLN250ML 1.000 84,000",
+      "confidence": 0.9
+    },
+    {
+      "id": "l11",
+      "name": "Paseo antibacterial wipes 25 sheets",
+      "qty": 1,
+      "price_cents": 1300000,
+      "raw": "PASEO ANTI BACTERIAL WIPES 25S 1.000 13,000",
+      "confidence": 0.9
     }
   ],
-  "total_cents": 3344,
+  "subtotal_cents": 59248400,
+  "tax_cents": 0,
+  "service_cents": 0,
+  "discount_cents": 0,
+  "total_cents": 59248400,
   "source": {
-    "image": "fixtures/receipts/pepito-2026-11-06.jpg",
-    "extractor": "manual-from-photo"
+    "image": "splits/inbox/1793980851372.jpg",
+    "drive_file_id": "1Woj0EpBNIvid9RHNn8Cj5bSBtD2teZP7",
+    "extractor": "google-drive-ocr + manual",
+    "notes": "Printed 'Total 595,594' is an OCR misread of 595,584 (= 265,584 non-PPN + 330,000 PPN goods); campaign discount 3,100 on Merries; value paid 592,484. PPN 11% (32,395) is included in the prices. Invoice 8C30380073856, 09:07."
   }
 }

@@ -84,7 +84,7 @@ def test_rigi_tax_is_spread_proportionally():
 
 def test_handover_example_totals_and_notes():
     """The 6 Nov 2026 Apotekku + Pepito batch must reproduce the handover's figures and notes byte for byte."""
-    recs, allocs = zip(load("apotekku-2026-11-06"), load("pepito-2026-11-06"))
+    recs, allocs = zip(load("example-usd-apotekku-2026-11-06"), load("example-usd-pepito-2026-11-06"))
     res = allocate(recs, allocs, POLICY)
     check_invariants(res)
     assert res["targets"]["daughter"]["card_cents"] == 855
@@ -117,7 +117,7 @@ def test_handover_example_totals_and_notes():
 
 
 def test_publish_requests_shares_and_fingerprints():
-    recs, allocs = zip(load("apotekku-2026-11-06"), load("pepito-2026-11-06"))
+    recs, allocs = zip(load("example-usd-apotekku-2026-11-06"), load("example-usd-pepito-2026-11-06"))
     res = allocate(recs, allocs, POLICY)
     reqs = {r["target"]: r for r in build_publish_requests(res, POLICY, "2026-11-06")}
     assert reqs["daughter"]["owed_cents"] == {"me": 428, "supi": 427}
@@ -135,7 +135,7 @@ def test_publish_requests_shares_and_fingerprints():
 def test_ledger_refuses_duplicates(tmp_path=None):
     import tempfile
     tmp = Path(tempfile.mkdtemp())
-    recs, allocs = zip(load("apotekku-2026-11-06"), load("pepito-2026-11-06"))
+    recs, allocs = zip(load("example-usd-apotekku-2026-11-06"), load("example-usd-pepito-2026-11-06"))
     reqs = build_publish_requests(allocate(recs, allocs, POLICY), POLICY, "2026-11-06")
     led = Ledger(tmp / "ledger.json")
     first = led.record_draft(reqs[0])
@@ -148,6 +148,19 @@ def test_ledger_refuses_duplicates(tmp_path=None):
         assert False, "second publish must fail"
     except ValueError:
         pass
+
+
+def test_real_pepito_receipt_idr_to_usd():
+    """Real 6 Nov Pepito receipt (Drive OCR): 592,484 IDR paid, 33.44 USD charged."""
+    r, a = load("pepito-2026-11-06")
+    assert r.lines_sum == 59248400 and r.extras_cents == 0
+    res = allocate([r], [a], POLICY)
+    check_invariants(res)
+    t = res["targets"]
+    assert (t["daughter"]["card_cents"], t["daily"]["card_cents"], t["unassigned"]["card_cents"]) == (377, 1468, 1499)
+    assert abs(res["receipts"][0]["implied_rate"] - 3344 / 59248400) < 1e-12
+    notes = render_notes(t["daily"], "USD", POLICY)
+    assert notes.endswith("----\nTotal: $14.68") and "$4.97 Earth Choice CLR Aqua 750 ml" in notes
 
 
 # ---------- edge cases ----------
